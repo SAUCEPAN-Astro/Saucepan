@@ -1,4 +1,4 @@
-# Saucepan
+# SAUCEPAN
 Small-Aperture distribUted Compute-Enabled Public Astronomy Network. 
 
 Saucepan gives researchers a toolkit to access a network of volunteer small aperture telescopes. 
