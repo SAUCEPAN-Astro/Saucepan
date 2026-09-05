@@ -13,11 +13,11 @@ Ability to maintain private distributed telescope fleet by research groups* <br>
 
 *not a feature that is fully fleshed out in this reference implementation<br>
 
-<br>
+
 # Parked project
 I am a highschool student, and do not have the skillset, time or resources to fully realize this project, and hence this project remains parked. If anyone is interested in forking the project/ working on/with this project please do reach out to me, I would love to be in the loop as to where this project goes. https://discord.gg/Z4cJxczXBq 
 
-<br>
+
 # Introduction 
 
 Any authorized user is able to programmatically create tasks, which will be sent to the central task server, a matching algorithm will be used to select the best volunteer scope for the task based on the details set by the user. FITS data be uploaded to a storage service, normalized, and researcher machine can poll for these downloads automatically. In the event the volunteer telescope drops a substitute telescope is brought in its place with high priority however uninterrupted coverage cannot be guaranteed until a large number of scopes are available. Multiple telescopes may be used for a task either to improve SNR or (more importantly) providing multiple perspectives, and also continuous coverage to monitor points of interest for longer duration of time. Saucepan aims to calibrate and normalize data in a way that ensures that the hetrogenous nature of the network does not lead to unreliable data products. A production implementation may look at further optimizing this process to improve quality. <br>
