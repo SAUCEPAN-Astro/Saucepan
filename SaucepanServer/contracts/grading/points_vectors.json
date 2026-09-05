@@ -1,0 +1,334 @@
+{
+  "version": 1,
+  "cases": [
+    {
+      "name": "quality_zero",
+      "grade": {
+        "dimensions": {
+          "image_quality": {
+            "score": 0.0
+          },
+          "task_fidelity": {
+            "score": 0.9
+          },
+          "timeliness": {
+            "score": 0.8
+          }
+        },
+        "sp_exptime": 30.0
+      },
+      "telescope_stats": {
+        "total_exposure_seconds": 0.0
+      },
+      "campaign_multiplier": 1.0,
+      "expected": {
+        "base_points": 10.0,
+        "quality_multiplier": 0.5,
+        "exptime_factor": 0.5,
+        "timeliness_factor": 0.9,
+        "tenure_multiplier": 1.0,
+        "campaign_multiplier": 1.0,
+        "sp_exptime": 30.0,
+        "points_earned": 2.25
+      }
+    },
+    {
+      "name": "quality_one",
+      "grade": {
+        "dimensions": {
+          "image_quality": {
+            "score": 1.0
+          },
+          "task_fidelity": {
+            "score": 0.9
+          },
+          "timeliness": {
+            "score": 0.8
+          }
+        },
+        "sp_exptime": 30.0
+      },
+      "telescope_stats": {
+        "total_exposure_seconds": 0.0
+      },
+      "campaign_multiplier": 1.0,
+      "expected": {
+        "base_points": 10.0,
+        "quality_multiplier": 1.0,
+        "exptime_factor": 0.5,
+        "timeliness_factor": 0.9,
+        "tenure_multiplier": 1.0,
+        "campaign_multiplier": 1.0,
+        "sp_exptime": 30.0,
+        "points_earned": 4.5
+      }
+    },
+    {
+      "name": "exptime_at_cap",
+      "grade": {
+        "dimensions": {
+          "image_quality": {
+            "score": 1.0
+          },
+          "task_fidelity": {
+            "score": 0.9
+          },
+          "timeliness": {
+            "score": 0.8
+          }
+        },
+        "sp_exptime": 60.0
+      },
+      "telescope_stats": {},
+      "campaign_multiplier": 1.0,
+      "expected": {
+        "base_points": 10.0,
+        "quality_multiplier": 1.0,
+        "exptime_factor": 1.0,
+        "timeliness_factor": 0.9,
+        "tenure_multiplier": 1.0,
+        "campaign_multiplier": 1.0,
+        "sp_exptime": 60.0,
+        "points_earned": 9.0
+      }
+    },
+    {
+      "name": "exptime_over_cap",
+      "grade": {
+        "dimensions": {
+          "image_quality": {
+            "score": 1.0
+          },
+          "task_fidelity": {
+            "score": 0.9
+          },
+          "timeliness": {
+            "score": 0.8
+          }
+        },
+        "sp_exptime": 120.0
+      },
+      "telescope_stats": {},
+      "campaign_multiplier": 1.0,
+      "expected": {
+        "base_points": 10.0,
+        "quality_multiplier": 1.0,
+        "exptime_factor": 1.0,
+        "timeliness_factor": 0.9,
+        "tenure_multiplier": 1.0,
+        "campaign_multiplier": 1.0,
+        "sp_exptime": 120.0,
+        "points_earned": 9.0
+      }
+    },
+    {
+      "name": "exptime_zero",
+      "grade": {
+        "dimensions": {
+          "image_quality": {
+            "score": 0.8
+          },
+          "task_fidelity": {
+            "score": 0.9
+          },
+          "timeliness": {
+            "score": 0.8
+          }
+        },
+        "sp_exptime": 0.0
+      },
+      "telescope_stats": {},
+      "campaign_multiplier": 1.0,
+      "expected": {
+        "base_points": 10.0,
+        "quality_multiplier": 0.9,
+        "exptime_factor": 0.25,
+        "timeliness_factor": 0.9,
+        "tenure_multiplier": 1.0,
+        "campaign_multiplier": 1.0,
+        "sp_exptime": 0.0,
+        "points_earned": 2.02
+      }
+    },
+    {
+      "name": "tenure_novice",
+      "grade": {
+        "dimensions": {
+          "image_quality": {
+            "score": 0.8
+          },
+          "task_fidelity": {
+            "score": 0.9
+          },
+          "timeliness": {
+            "score": 0.8
+          }
+        },
+        "sp_exptime": 30.0
+      },
+      "telescope_stats": {
+        "total_exposure_seconds": 0.0
+      },
+      "campaign_multiplier": 1.0,
+      "expected": {
+        "base_points": 10.0,
+        "quality_multiplier": 0.9,
+        "exptime_factor": 0.5,
+        "timeliness_factor": 0.9,
+        "tenure_multiplier": 1.0,
+        "campaign_multiplier": 1.0,
+        "sp_exptime": 30.0,
+        "points_earned": 4.05
+      }
+    },
+    {
+      "name": "tenure_veteran",
+      "grade": {
+        "dimensions": {
+          "image_quality": {
+            "score": 0.8
+          },
+          "task_fidelity": {
+            "score": 0.9
+          },
+          "timeliness": {
+            "score": 0.8
+          }
+        },
+        "sp_exptime": 30.0
+      },
+      "telescope_stats": {
+        "total_exposure_seconds": 36000.0
+      },
+      "campaign_multiplier": 1.0,
+      "expected": {
+        "base_points": 10.0,
+        "quality_multiplier": 0.9,
+        "exptime_factor": 0.5,
+        "timeliness_factor": 0.9,
+        "tenure_multiplier": 1.1199,
+        "campaign_multiplier": 1.0,
+        "sp_exptime": 30.0,
+        "points_earned": 4.54
+      }
+    },
+    {
+      "name": "campaign_base",
+      "grade": {
+        "dimensions": {
+          "image_quality": {
+            "score": 0.8
+          },
+          "task_fidelity": {
+            "score": 0.9
+          },
+          "timeliness": {
+            "score": 0.8
+          }
+        },
+        "sp_exptime": 30.0
+      },
+      "telescope_stats": {},
+      "campaign_multiplier": 1.0,
+      "expected": {
+        "base_points": 10.0,
+        "quality_multiplier": 0.9,
+        "exptime_factor": 0.5,
+        "timeliness_factor": 0.9,
+        "tenure_multiplier": 1.0,
+        "campaign_multiplier": 1.0,
+        "sp_exptime": 30.0,
+        "points_earned": 4.05
+      }
+    },
+    {
+      "name": "campaign_double",
+      "grade": {
+        "dimensions": {
+          "image_quality": {
+            "score": 0.8
+          },
+          "task_fidelity": {
+            "score": 0.9
+          },
+          "timeliness": {
+            "score": 0.8
+          }
+        },
+        "sp_exptime": 30.0
+      },
+      "telescope_stats": {},
+      "campaign_multiplier": 2.0,
+      "expected": {
+        "base_points": 10.0,
+        "quality_multiplier": 0.9,
+        "exptime_factor": 0.5,
+        "timeliness_factor": 0.9,
+        "tenure_multiplier": 1.0,
+        "campaign_multiplier": 2.0,
+        "sp_exptime": 30.0,
+        "points_earned": 8.1
+      }
+    },
+    {
+      "name": "campaign_nonpositive_defaults",
+      "grade": {
+        "dimensions": {
+          "image_quality": {
+            "score": 0.8
+          },
+          "task_fidelity": {
+            "score": 0.9
+          },
+          "timeliness": {
+            "score": 0.8
+          }
+        },
+        "sp_exptime": 30.0
+      },
+      "telescope_stats": {},
+      "campaign_multiplier": 0.0,
+      "expected": {
+        "base_points": 10.0,
+        "quality_multiplier": 0.9,
+        "exptime_factor": 0.5,
+        "timeliness_factor": 0.9,
+        "tenure_multiplier": 1.0,
+        "campaign_multiplier": 1.0,
+        "sp_exptime": 30.0,
+        "points_earned": 4.05
+      }
+    },
+    {
+      "name": "go_fixture_parity",
+      "grade": {
+        "dimensions": {
+          "image_quality": {
+            "score": 0.8
+          },
+          "task_fidelity": {
+            "score": 0.9
+          },
+          "timeliness": {
+            "score": 0.6
+          }
+        },
+        "sp_exptime": 30.0
+      },
+      "telescope_stats": {
+        "total_exposure_seconds": 3600.0
+      },
+      "campaign_multiplier": 1.0,
+      "expected": {
+        "base_points": 10.0,
+        "quality_multiplier": 0.9,
+        "exptime_factor": 0.5,
+        "timeliness_factor": 0.8,
+        "tenure_multiplier": 1.0347,
+        "campaign_multiplier": 1.0,
+        "sp_exptime": 30.0,
+        "points_earned": 3.72
+      }
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "saucepan-grading"
+version = "1.0.0"
+description = "Shared per-frame grading, points, and stack eligibility for Saucepan"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+fits = ["astropy>=6.0.0"]
+dev = ["pytest>=7.0"]
+
+[tool.setuptools]
+package-dir = {"grading" = "."}
+packages = ["grading"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = [".."]

@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "description": "Minimum grade-ingest payload shape (Go apiserver + compute worker). Not a full OpenAPI schema.",
+  "required": [
+    "upload_id",
+    "telescope_id",
+    "idempotency_key",
+    "headline",
+    "dimensions"
+  ],
+  "example": {
+    "upload_id": "up-example-1",
+    "telescope_id": "node_001",
+    "idempotency_key": "up-example-1:grade",
+    "headline": 75,
+    "sp_exptime": 30.0,
+    "grader_version": "1.0.0",
+    "dimensions": {
+      "image_quality": {"score": 0.8},
+      "task_fidelity": {"score": 0.9},
+      "timeliness": {"score": 0.7}
+    }
+  },
+  "dimension_keys": ["image_quality", "task_fidelity", "timeliness"],
+  "score_range": [0.0, 1.0],
+  "headline_range": [0, 100]
+}

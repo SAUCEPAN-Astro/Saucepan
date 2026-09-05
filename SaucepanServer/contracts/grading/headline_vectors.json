@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "cases": [
+    {
+      "name": "balanced",
+      "dimensions": {
+        "image_quality": {
+          "score": 0.8
+        },
+        "task_fidelity": {
+          "score": 0.9
+        },
+        "timeliness": {
+          "score": 0.6
+        }
+      },
+      "expected": 78
+    },
+    {
+      "name": "all_zero",
+      "dimensions": {
+        "image_quality": {
+          "score": 0.0
+        },
+        "task_fidelity": {
+          "score": 0.0
+        },
+        "timeliness": {
+          "score": 0.0
+        }
+      },
+      "expected": 0
+    },
+    {
+      "name": "all_one",
+      "dimensions": {
+        "image_quality": {
+          "score": 1.0
+        },
+        "task_fidelity": {
+          "score": 1.0
+        },
+        "timeliness": {
+          "score": 1.0
+        }
+      },
+      "expected": 100
+    }
+  ]
+}

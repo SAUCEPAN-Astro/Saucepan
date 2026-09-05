@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "constants": {
+    "BASE_POINTS": 10.0,
+    "EXPTIME_CAP_SECONDS": 60.0,
+    "TENURE_LOG_SCALE": 0.05,
+    "STACK_ELIGIBLE_MIN_QUALITY": 0.3,
+    "RELIABILITY_EMA_ALPHA": 0.15,
+    "HEADLINE_EMA_ALPHA": 0.1,
+    "SNR_FULL_CREDIT": 50.0,
+    "SATURATION_PENALTY_FRACTION": 0.001,
+    "NEUTRAL_FWHM_SCORE": 0.5,
+    "FILTER_ABSENT_SCORE": 0.7,
+    "CALIBRATION_BONUS": 0.1,
+    "CAPTURE_LATENCY_FULL_SEC": 1800.0,
+    "CAPTURE_LATENCY_ZERO_SEC": 14400.0,
+    "UPLOAD_DURATION_FULL_SEC": 300.0,
+    "UPLOAD_DURATION_ZERO_SEC": 3600.0,
+    "TIMELINESS_CAPTURE_WEIGHT": 0.6,
+    "TIMELINESS_UPLOAD_WEIGHT": 0.4,
+    "MISSING_TIMELINESS_SCORE": 0.5,
+    "CHEAP_DIMENSION_WEIGHTS": {
+      "image_quality": 0.4,
+      "task_fidelity": 0.35,
+      "timeliness": 0.25
+    },
+    "IMAGE_QUALITY_WEIGHTS": {
+      "snr": 0.45,
+      "saturation": 0.15,
+      "fwhm": 0.4
+    }
+  }
+}

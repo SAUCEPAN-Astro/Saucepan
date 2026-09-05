@@ -1,0 +1,90 @@
+{
+  "version": 1,
+  "ema_cases": [
+    {
+      "name": "seed_none",
+      "previous": null,
+      "sample": 0.7,
+      "alpha": 0.15,
+      "expected": 0.7
+    },
+    {
+      "name": "update",
+      "previous": 0.7,
+      "sample": 0.5,
+      "alpha": 0.15,
+      "expected": 0.67
+    },
+    {
+      "name": "headline_alpha",
+      "previous": 0.8,
+      "sample": 0.6,
+      "alpha": 0.1,
+      "expected": 0.78
+    }
+  ],
+  "reputation_cases": [
+    {
+      "name": "seed_first_frame",
+      "existing": null,
+      "headline": 80,
+      "dimensions": {
+        "image_quality": {
+          "score": 0.7
+        },
+        "task_fidelity": {
+          "score": 0.9
+        },
+        "timeliness": {
+          "score": 0.8
+        }
+      },
+      "points_earned": 5.5,
+      "sp_exptime": 20.0,
+      "expected": {
+        "total_points": 5.5,
+        "frame_count": 1,
+        "total_exposure_seconds": 20.0,
+        "points_per_hour": 990.0,
+        "reliability_score": 0.7,
+        "task_quality_score": 0.8,
+        "source": "grade_ingest"
+      }
+    },
+    {
+      "name": "ema_second_frame",
+      "existing": {
+        "total_points": 5.5,
+        "frame_count": 1,
+        "total_exposure_seconds": 20.0,
+        "points_per_hour": 990.0,
+        "reliability_score": 0.7,
+        "task_quality_score": 0.8,
+        "source": "grade_ingest"
+      },
+      "headline": 60,
+      "dimensions": {
+        "image_quality": {
+          "score": 0.5
+        },
+        "task_fidelity": {
+          "score": 0.9
+        },
+        "timeliness": {
+          "score": 0.8
+        }
+      },
+      "points_earned": 3.0,
+      "sp_exptime": 10.0,
+      "expected": {
+        "total_points": 8.5,
+        "frame_count": 2,
+        "total_exposure_seconds": 30.0,
+        "points_per_hour": 1020.0,
+        "reliability_score": 0.67,
+        "task_quality_score": 0.78,
+        "source": "grade_ingest"
+      }
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "cases": [
+    {
+      "name": "below_threshold",
+      "dimensions": {
+        "image_quality": {
+          "score": 0.29
+        },
+        "task_fidelity": {
+          "score": 0.9
+        },
+        "timeliness": {
+          "score": 0.8
+        }
+      },
+      "expected": false
+    },
+    {
+      "name": "at_threshold",
+      "dimensions": {
+        "image_quality": {
+          "score": 0.3
+        },
+        "task_fidelity": {
+          "score": 0.9
+        },
+        "timeliness": {
+          "score": 0.8
+        }
+      },
+      "expected": true
+    },
+    {
+      "name": "above_threshold",
+      "dimensions": {
+        "image_quality": {
+          "score": 0.5
+        },
+        "task_fidelity": {
+          "score": 0.9
+        },
+        "timeliness": {
+          "score": 0.8
+        }
+      },
+      "expected": true
+    },
+    {
+      "name": "low",
+      "dimensions": {
+        "image_quality": {
+          "score": 0.1
+        },
+        "task_fidelity": {
+          "score": 0.9
+        },
+        "timeliness": {
+          "score": 0.8
+        }
+      },
+      "expected": false
+    }
+  ]
+}

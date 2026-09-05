@@ -1,0 +1,70 @@
+{
+  "description": "Shared vectors for dimension scoring mirrored by Go ingest code.",
+  "image_quality_cases": [
+    {
+      "name": "measured_fwhm_without_target_uses_neutral_source",
+      "metrics": {},
+      "headers": {"sp_fwhm": 2.0},
+      "expected": {
+        "score": 0.35,
+        "snr": 0.0,
+        "noise_adu": 0.0,
+        "saturation_fraction": 0.0,
+        "fwhm_arcsec": 2.0,
+        "fwhm_source": "neutral",
+        "star_pixels": 0
+      }
+    },
+    {
+      "name": "predicted_psf_and_metrics",
+      "metrics": {
+        "snr": 50.0,
+        "noise_adu": 4.0,
+        "shape": [10, 10],
+        "saturated_pixels": 0,
+        "star_pixels": 12
+      },
+      "headers": {"sp_fwhm": 2.0},
+      "predicted_psf_arcsec": 2.0,
+      "expected": {
+        "score": 1.0,
+        "snr": 50.0,
+        "noise_adu": 4.0,
+        "saturation_fraction": 0.0,
+        "fwhm_arcsec": 2.0,
+        "fwhm_source": "header",
+        "star_pixels": 12
+      }
+    }
+  ],
+  "task_fidelity_cases": [
+    {
+      "name": "matching_filter_and_calibration_bonus",
+      "headers": {"sp_exptime": 30.0, "sp_filter": "R", "sp_calstat": "BDF"},
+      "task_context": {"integration_time_requested": 60.0, "filter_requested": "R,G,B"},
+      "expected": {
+        "score": 0.75,
+        "exptime_ratio": 0.5,
+        "filter_match": true,
+        "filter_requested": "R,G,B",
+        "filter_actual": "R",
+        "calstat": "BDF"
+      }
+    }
+  ],
+  "timeliness_cases": [
+    {
+      "name": "full_credit_capture_and_upload",
+      "task_context": {
+        "assignment_sent_at": "2026-01-01T00:00:00Z",
+        "upload_started_at": "2026-01-01T00:25:00Z",
+        "upload_completed_at": "2026-01-01T00:30:00Z"
+      },
+      "expected": {
+        "score": 1.0,
+        "capture_latency_sec": 1800.0,
+        "upload_duration_sec": 300.0
+      }
+    }
+  ]
+}
