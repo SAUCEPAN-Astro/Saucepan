@@ -31,7 +31,8 @@ git clone https://github.com/SAUCEPAN-Astro/Saucepan.git
 cd Saucepan
 
 python3 -m venv .venv
-.venv/bin/pip install -r requirements.txt
+# The root requirements.txt is a legacy bootstrap list. Install the service
+# manifests for the components you plan to work on instead.
 .venv/bin/pip install -e SaucepanServer/compute-server/pipeline \
   -e SaucepanServer/compute-server/grading[fits]
 
