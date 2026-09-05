@@ -54,9 +54,7 @@ The CI workflow and local mirror are the authoritative check list:
 | Required PR checks | [`.github/workflows/ci.yml`](.github/workflows/ci.yml) — Go task+user (incl. `go build ./cmd/saucepan`), **hermetic ingest/R2 contracts**, compute units, **full SDK pytest**, datalake lint+pytest. Aggregate: **CI OK**. (No `cargo` job — the Rust pier client was extracted to a separate repository and is not built here.) |
 
 Hard gates are **tests + compile**. Excluded from PR CI (documented, not
-silent): live R2/inbox E2E, archived Tauri UI, and Tailscale system journeys.
-Path-B mock smoke is **gone** (cold-bridge retired) — do not treat old mock
-ingest as product proof.
+silent): live R2/inbox E2E, archived Tauri UI, and system-level journeys.
 
 **Falsify:** invert one grading golden vector under
 `SaucepanServer/contracts/grading/` — `pytest tests/test_parity_vectors.py`

@@ -1,0 +1,355 @@
+{
+  "_comment": "Source of truth for the apiserver HTTP contract. Regenerate with contracts/rest/gen.py after editing cmd/apiserver/routes.go. rest_contract_test.go and the SDK's tests/test_rest_contract.py both gate against this file.",
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/",
+      "surface": "infra"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/account/usage",
+      "surface": "researcher"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/alerts",
+      "surface": "researcher"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/alerts/{id}/ack",
+      "surface": "researcher"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/campaigns",
+      "surface": "researcher"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/campaigns",
+      "surface": "researcher"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/campaigns/{id}",
+      "surface": "researcher"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/campaigns/{id}/board",
+      "surface": "researcher"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/campaigns/{id}/board",
+      "surface": "researcher"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/campaigns/{id}/coverage",
+      "surface": "researcher"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/campaigns/{id}/coverage/apply",
+      "surface": "researcher"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/campaigns/{id}/coverage/preview",
+      "surface": "researcher"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/campaigns/{id}/coverage/status",
+      "surface": "researcher"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/campaigns/{id}/leaderboard",
+      "surface": "researcher"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/campaigns/{id}/pause",
+      "surface": "researcher"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/campaigns/{id}/publish",
+      "surface": "researcher"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/campaigns/{id}/resume",
+      "surface": "researcher"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/campaigns/{id}/stack-status",
+      "surface": "researcher"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/campaigns/{id}/tasks",
+      "surface": "researcher"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/campaigns/{id}/tasks",
+      "surface": "researcher"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/fleet/sites",
+      "surface": "researcher"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/grades/ingest",
+      "surface": "infra"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/inbox",
+      "surface": "developer"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/inbox/{id}/ack",
+      "surface": "developer"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/v1/inbox/{notification_id}",
+      "surface": "developer"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/keys",
+      "surface": "developer"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/keys",
+      "surface": "developer"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/v1/keys/{key_id}",
+      "surface": "developer"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/me",
+      "surface": "developer"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/me/quota",
+      "surface": "developer"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/observation-groups/{id}",
+      "surface": "researcher"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/tasks",
+      "surface": "developer"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/tasks",
+      "surface": "developer"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/tasks/{task_id}",
+      "surface": "developer"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/tasks/{task_id}/download-url",
+      "surface": "developer"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/telescopes/{id}/points",
+      "surface": "infra"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/updates",
+      "surface": "researcher"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/updates/{id}/ack",
+      "surface": "researcher"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/worker/enqueue",
+      "surface": "infra"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/worker/stack-product",
+      "surface": "infra"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/worker/pending",
+      "surface": "infra"
+    },
+    {
+      "method": "POST",
+      "path": "/auth/change-password",
+      "surface": "auth"
+    },
+    {
+      "method": "GET",
+      "path": "/auth/devices",
+      "surface": "pier"
+    },
+    {
+      "method": "POST",
+      "path": "/auth/devices",
+      "surface": "pier"
+    },
+    {
+      "method": "DELETE",
+      "path": "/auth/devices/{node_id}",
+      "surface": "pier"
+    },
+    {
+      "method": "POST",
+      "path": "/auth/forgot-password",
+      "surface": "auth"
+    },
+    {
+      "method": "POST",
+      "path": "/auth/heartbeat",
+      "surface": "pier"
+    },
+    {
+      "method": "POST",
+      "path": "/auth/login",
+      "surface": "auth"
+    },
+    {
+      "method": "POST",
+      "path": "/auth/logout",
+      "surface": "auth"
+    },
+    {
+      "method": "POST",
+      "path": "/auth/refresh",
+      "surface": "auth"
+    },
+    {
+      "method": "POST",
+      "path": "/auth/register",
+      "surface": "auth"
+    },
+    {
+      "method": "POST",
+      "path": "/auth/reset",
+      "surface": "auth"
+    },
+    {
+      "method": "POST",
+      "path": "/auth/reset-password",
+      "surface": "auth"
+    },
+    {
+      "method": "POST",
+      "path": "/auth/reset-request",
+      "surface": "auth"
+    },
+    {
+      "method": "POST",
+      "path": "/auth/verify",
+      "surface": "auth"
+    },
+    {
+      "method": "POST",
+      "path": "/auth/verify-email",
+      "surface": "auth"
+    },
+    {
+      "method": "GET",
+      "path": "/cohort/status",
+      "surface": "infra"
+    },
+    {
+      "method": "GET",
+      "path": "/quest/handoff-broadcast",
+      "surface": "pier"
+    },
+    {
+      "method": "GET",
+      "path": "/quest/handoff-status",
+      "surface": "pier"
+    },
+    {
+      "method": "POST",
+      "path": "/quest/tasks",
+      "surface": "pier"
+    },
+    {
+      "method": "GET",
+      "path": "/quest/tasks/{id}",
+      "surface": "pier"
+    },
+    {
+      "method": "PATCH",
+      "path": "/quest/tasks/{id}",
+      "surface": "pier"
+    },
+    {
+      "method": "PATCH",
+      "path": "/quest/tasks/{id}/complete",
+      "surface": "pier"
+    },
+    {
+      "method": "POST",
+      "path": "/quest/tasks/{id}/emergency-handoff",
+      "surface": "pier"
+    },
+    {
+      "method": "PATCH",
+      "path": "/quest/tasks/{id}/handoff",
+      "surface": "pier"
+    },
+    {
+      "method": "POST",
+      "path": "/quest/telescopes",
+      "surface": "pier"
+    },
+    {
+      "method": "PATCH",
+      "path": "/quest/telescopes/{id}",
+      "surface": "pier"
+    },
+    {
+      "method": "POST",
+      "path": "/upload/complete",
+      "surface": "pier"
+    },
+    {
+      "method": "POST",
+      "path": "/upload/presign",
+      "surface": "pier"
+    },
+    {
+      "method": "POST",
+      "path": "/upload/start",
+      "surface": "pier"
+    }
+  ]
+}
