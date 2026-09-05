@@ -1,5 +1,5 @@
 {
-  "_comment": "Source of truth for the apiserver HTTP contract. Regenerate with contracts/rest/gen.py after editing cmd/apiserver/routes.go. rest_contract_test.go and the SDK's tests/test_rest_contract.py both gate against this file.",
+  "_comment": "Source of truth for the apiserver HTTP contract (#452). Regenerate with contracts/rest/gen.py after editing cmd/apiserver/routes.go. rest_contract_test.go and the SDK's tests/test_rest_contract.py both gate against this file.",
   "routes": [
     {
       "method": "GET",

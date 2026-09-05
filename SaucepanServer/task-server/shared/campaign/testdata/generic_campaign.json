@@ -1,0 +1,13 @@
+{
+  "name": "generic-test",
+  "test_only": true,
+  "targets": [
+    {
+      "ra": 12.345,
+      "dec": -4.5,
+      "filters": ["R"],
+      "exposure_sec": 20,
+      "frame_count": 3
+    }
+  ]
+}
