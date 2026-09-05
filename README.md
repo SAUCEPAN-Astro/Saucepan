@@ -1,7 +1,7 @@
 # SAUCEPAN
 Small-Aperture distribUted Compute-Enabled Public Astronomy Network. 
 
-Saucepan is designed to let researchers access a toolkit to access a network of free **volunteer** small aperture telescopes. 
+Saucepan is designed to let researchers access a toolkit to access a network of free **volunteer** small aperture telescopes. \n
 Automated task assignment at high speeds and matching. configurable scientific and telescope constraints for tasks allowing selection by aperture, filters, FWHM/seeing, resolution, field of view, exposure limits, altitude/horizon safety, quality tier, site geography, cohort similarity, and scarcity-aware selection.
 Multiple science products: per-frame results, time-binned products, or stacked images. 
 Pier operator tooling: a lightweight CLI for status, constraints, project participation, and other features 
