@@ -1,0 +1,25 @@
+# Datalake CI lint — correctness only.
+# Style-debt rules (I/UP/BLE/PLW/RUF/…) are NOT merge blockers.
+# Pin the ruff CLI in scripts/preflight.sh; do not `pip install -U ruff`.
+target-version = "py311"
+line-length = 100
+
+extend-exclude = [
+  # Legacy / optional distribution helpers — not on the R2 hot path.
+  "torrent",
+  "ipfs",
+  "monitor",
+  "migrations",
+  ".venv",
+  ".ruff_cache",
+  ".pytest_cache",
+]
+
+[lint]
+# Match classic ruff defaults (E4/E7/E9 + F). Explicit so a future ruff
+# release cannot silently expand the gate the way 0.16 did.
+select = ["E4", "E7", "E9", "F"]
+
+[lint.per-file-ignores]
+# Tests may import fixtures / helpers for readability.
+"tests/**" = ["F401"]
