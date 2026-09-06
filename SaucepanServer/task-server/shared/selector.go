@@ -170,7 +170,7 @@ func passesNodeGates(n NodeEvaluation, req TaskRequirements, now time.Time) bool
 	if n.IsEmulator != req.AllowEmulator {
 		return false
 	}
-	if n.Status == NodeStatusOffline {
+	if n.Status == NodeStatusOffline || n.Status == "error" {
 		return false
 	}
 	if !nodeHasFilters(n.AvailableFilters, req.RequiredFilters) {
@@ -287,7 +287,7 @@ func SelectBestNode(
 		}
 
 		if n.CurrentTaskPriority == nil || n.Status == NodeStatusBusy || n.Status == "observing" ||
-			n.Status == "uploading" || n.Status == "error" {
+			n.Status == "uploading" {
 			candidate := preemptionSelectorResult(n, slew, taskPriority, preemptThreshold)
 			if candidate != nil && (best == nil || candidate.Score < best.Score) {
 				best = candidate

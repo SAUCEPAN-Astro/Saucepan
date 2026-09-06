@@ -114,6 +114,21 @@ func TestSelectBestNode_noEligibleNodeReturnsNil(t *testing.T) {
 	}
 }
 
+func TestSelectBestNode_doesNotPreemptErrorNode(t *testing.T) {
+	now := time.Date(2026, 6, 15, 2, 0, 0, 0, time.UTC)
+	req := testReq(nil, nil, false)
+	node := busyNode("error-node", 7, 100, 0)
+	node.Status = "error"
+	if got := SelectBestNode([]NodeEvaluation{node}, req, 10, 1, 0, now); got != nil {
+		t.Fatalf("error node must not be selected for preemption, got %+v", got)
+	}
+
+	idleLooking := NodeEvaluation{NodeID: "error-idle", Status: "error", ReliabilityScore: 1.0}
+	if got := SelectBestNode([]NodeEvaluation{idleLooking}, req, 10, 1, 0, now); got != nil {
+		t.Fatalf("error node with no current task must not be selected, got %+v", got)
+	}
+}
+
 func TestSelectBestNode_slewNearbyTiebreakBeatsFarPreemption(t *testing.T) {
 	lat, lon := 34.0, -118.0
 	ra, dec := 180.0, 45.0
