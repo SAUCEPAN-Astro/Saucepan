@@ -120,8 +120,9 @@ type NextCaptureBounds struct {
 }
 
 // ValidateNextCapture checks p against b and returns a non-nil error naming
-// the first field out of range. An empty/zero bound field is not enforced
-// here (the pier's own capture layer still applies its hard limits).
+// the first field out of range. An empty/zero exposure or gain bound is not
+// enforced here (the pier's own capture layer still applies its hard limits);
+// an empty AllowedFilters set rejects every filter override.
 func (b NextCaptureBounds) ValidateNextCapture(p NextCapturePayload) error {
 	if p.ExposureSec != nil {
 		v := *p.ExposureSec
@@ -144,7 +145,7 @@ func (b NextCaptureBounds) ValidateNextCapture(p NextCapturePayload) error {
 			return &PierCodeError{Field: "gain", Msg: "below campaign min"}
 		}
 	}
-	if p.Filter != nil && len(b.AllowedFilters) > 0 {
+	if p.Filter != nil {
 		ok := false
 		for _, f := range b.AllowedFilters {
 			if f == *p.Filter {

@@ -27,10 +27,10 @@ type Job struct {
 	FramePath string `json:"frame_path,omitempty"`
 	// ArtifactPath is the verified researcher wasm module to execute.
 	ArtifactPath string `json:"artifact_path"`
-	// ArtifactSHA256, when set, is the lowercase-hex content hash the agent
-	// resolved from the assign (#518). The runner re-hashes ArtifactPath and
-	// refuses to run on a mismatch — the independent second check at the
-	// boundary that actually loads code.
+	// ArtifactSHA256 is the lowercase-hex content hash the agent resolved from
+	// the assign (#518). The runner re-hashes ArtifactPath and refuses to run
+	// on a mismatch — the independent second check at the boundary that
+	// actually loads code.
 	ArtifactSHA256 string `json:"artifact_sha256,omitempty"`
 	// Grants maps an approved action name (wire.Action*) to whether this
 	// campaign may emit it (#516). Absent/false = deny.
