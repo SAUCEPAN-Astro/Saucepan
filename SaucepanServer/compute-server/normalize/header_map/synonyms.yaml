@@ -1,0 +1,107 @@
+# synonyms.yaml — concept-based synonym vocabulary for SP_ header mapping
+#
+# Structure per field:
+#   SP_FIELD:
+#     synonyms: [LIST, OF, SOURCE, KEYS]   # tried in order, first match wins
+#     transform: <transform name>           # optional value normalization
+#
+# Transforms:
+#   float       — cast to float
+#   int         — cast to int
+#   str         — strip whitespace
+#   utc_iso     — any date/time format → ISO 8601 UTC string
+#   ra_deg      — decimal or sexagesimal RA → decimal degrees
+#   dec_deg     — decimal or sexagesimal Dec → decimal degrees
+#   filter_canon — normalize filter name to canonical form
+#
+# To add a new camera: just add its key names to the relevant synonyms list.
+# No instrument_match required.
+
+SP_EXPTIME:
+  synonyms: [EXPTIME, EXPOSURE, EXP_TIME, EXPTIME_S, ITIME, INTTIME, INT_TIME, EXPTIM]
+  transform: float
+
+SP_DATEOBS:
+  synonyms: [DATE-OBS, DATE_OBS, DATEOBS, DATE-BEG, DATE_BEG, UTSTART, UT-DATE, MJD-OBS, JD-OBS]
+  transform: utc_iso
+
+SP_RA:
+  # WCS takes priority; these are header fallbacks
+  synonyms: [RA, OBJCTRA, RA_DEG, ALPHA_J2000, RA2000, RADEG, RAOBJ, RA_OBJ]
+  transform: ra_deg
+
+SP_DEC:
+  synonyms: [DEC, OBJCTDEC, DEC_DEG, DELTA_J2000, DEC2000, DECDEG, DECOBJ, DEC_OBJ]
+  transform: dec_deg
+
+SP_TELE:
+  synonyms: [TELESCOP, TELESCOPE, OBSTELESC, TELNAME, INSTRTEL, OBS_TELE]
+  transform: str
+
+SP_INSTR:
+  synonyms: [INSTRUME, INSTRUMENT, CAMERA, INSTNAME, DETECTOR, CCD_NAME, CAMNAME]
+  transform: str
+
+SP_FILTER:
+  synonyms: [FILTER, FILTER1, FILTER2, FILTNAM, FILTNAM1, INSFILTE, FITSFILT, FILT_NAM, FILTERID, HIERARCH ESO INS FILT1 NAME]
+  transform: filter_canon
+
+SP_GAIN:
+  # Note: ISOSPEED/ISO from DSLRs is NOT equivalent to e-/ADU gain.
+  # SP_GAIN_UNIT will be set to 'ISO' vs 'e-/ADU' to flag this.
+  synonyms: [GAIN, EGAIN, CCD-GAIN, DETGAIN, CCDGAIN, GAIN_EL]
+  transform: float
+
+SP_GAINISO:
+  # Separate field for DSLR ISO to avoid mixing with e-/ADU gain
+  synonyms: [ISOSPEED, ISO, ISO_SPEED, ISOVALUE, SP_GAINISO]
+  transform: int
+
+SP_BINX:
+  synonyms: [XBINNING, XBIN, BINX, BINNING, SP_BINX]
+  transform: int
+
+SP_BINY:
+  synonyms: [YBINNING, YBIN, BINY, SP_BINY]
+  transform: int
+
+SP_TIMESYS:
+  synonyms: [TIMESYS, TIME-SYS, SP_TIMESYS]
+  transform: str
+
+SP_RDNOISE:
+  synonyms: [RDNOISE, READNOIS, RON, READ_NOISE, RDNOIS, RONOISE, READOUT_NOISE]
+  transform: float
+
+SP_AIRMASS:
+  synonyms: [AIRMASS, AMSTART, AIRMASS1, HIERARCH ESO TEL AIRM START, SECZ]
+  transform: float
+
+SP_SITELAT:
+  synonyms: [SITELAT, OBSLAT, LATITUDE, SITE-LAT, GEOLAT, LAT_OBS, HIERARCH ESO TEL GEOLAT]
+  transform: float
+
+SP_SITELON:
+  synonyms: [SITELONG, OBSLONG, LONGITUDE, SITE-LON, GEOLON, LON_OBS, HIERARCH ESO TEL GEOLON, SITELON]
+  transform: float
+
+SP_SITEELV:
+  synonyms: [SITEELEV, OBSELEV, ALTITUDE, ELEVATION, GEOELEV, ALT_OBS, HIERARCH ESO TEL GEOELEV]
+  transform: float
+
+SP_TGTNAM:
+  synonyms: [OBJECT, TARGET, OBJNAME, TARGNAME, FIELD, OBJ_NAME, SOURCE]
+  transform: str
+
+SP_CALSTAT:
+  synonyms: [CALSTAT, CALSTATE, PROCSTAT, IMAGETYP]
+  transform: str
+
+SP_SCTYPE:
+  synonyms: [OBSTYPE, OBS_TYPE, SCIENCE_TYPE, IMGTYPE, IMAGETYP]
+  transform: str
+
+SP_PIXSCALE:
+  # arcsec/pixel — often not in headers, computed from optics if possible
+  synonyms: [PIXSCALE, SCALE, PLATESCL, PIX_SCAL, SECPIX]
+  transform: float

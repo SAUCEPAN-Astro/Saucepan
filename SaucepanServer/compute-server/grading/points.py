@@ -17,13 +17,9 @@ def ema_update(
     alpha: float,
 ) -> float:
     """Exponential moving average; seed with first sample when no history."""
-    sample_value = dimensions._safe_float(sample) or 0.0
-    alpha_value = dimensions._safe_float(alpha) or 0.0
-    previous_value = dimensions._safe_float(previous, None)
-    if previous_value is None:
-        return round(sample_value, 4)
-    result = (1.0 - alpha_value) * previous_value + alpha_value * sample_value
-    return round(result, 4) if math.isfinite(result) else 0.0
+    if previous is None:
+        return round(sample, 4)
+    return round((1.0 - alpha) * previous + alpha * sample, 4)
 
 
 def compute_frame_points(
@@ -49,7 +45,7 @@ def compute_frame_points(
     timeliness = dimensions.dim_score(dims, "timeliness")
 
     quality_multiplier = 0.5 + 0.5 * image_quality
-    exptime = dimensions._safe_float(grade_dict.get("sp_exptime")) or 0.0
+    exptime = float(grade_dict.get("sp_exptime") or 0.0)
     if exptime > 0:
         exptime_factor = min(1.0, exptime / constants.EXPTIME_CAP_SECONDS)
     else:
@@ -57,21 +53,13 @@ def compute_frame_points(
     timeliness_factor = 0.5 + 0.5 * timeliness
 
     stats = telescope_stats or {}
-    total_exposure_seconds = dimensions._safe_float(stats.get("total_exposure_seconds")) or 0.0
+    total_exposure_seconds = float(stats.get("total_exposure_seconds") or 0.0)
     total_hours = max(0.0, total_exposure_seconds) / 3600.0
     tenure_multiplier = 1.0 + math.log1p(total_hours) * constants.TENURE_LOG_SCALE
 
-    base_points_value = dimensions._safe_float(base_points, None)
-    bp = constants.BASE_POINTS if base_points_value is None else base_points_value
-    campaign_multiplier_value = dimensions._safe_float(campaign_multiplier, None)
-    mult = (
-        campaign_multiplier_value
-        if campaign_multiplier_value is not None and campaign_multiplier_value > 0
-        else 1.0
-    )
+    bp = constants.BASE_POINTS if base_points is None else base_points
+    mult = campaign_multiplier if campaign_multiplier > 0 else 1.0
     points = bp * quality_multiplier * exptime_factor * timeliness_factor * tenure_multiplier * mult
-    if not math.isfinite(points):
-        points = 0.0
 
     return {
         "base_points": bp,
@@ -100,34 +88,25 @@ def build_reputation_partial(
     """
     stats = dict(existing or {})
     prev_reliability = stats.get("reliability_score")
-    prev_reliability = dimensions._safe_float(prev_reliability, None)
+    if isinstance(prev_reliability, (int, float)):
+        prev_reliability = float(prev_reliability)
+    else:
+        prev_reliability = None
 
     prev_headline = stats.get("task_quality_score")
-    prev_headline = dimensions._safe_float(prev_headline, None)
+    if isinstance(prev_headline, (int, float)):
+        prev_headline = float(prev_headline)
+    else:
+        prev_headline = None
 
     image_quality = dimensions.dim_score(dimensions_map, "image_quality")
-    total_points = (dimensions._safe_float(stats.get("total_points")) or 0.0) + (
-        dimensions._safe_float(points_earned) or 0.0
-    )
-    frame_count_value = dimensions._safe_float(stats.get("frame_count"), None)
-    frame_count = max(0, int(frame_count_value or 0)) + 1
-    exposure_value = dimensions._safe_float(sp_exptime) or 0.0
-    total_exposure = (dimensions._safe_float(stats.get("total_exposure_seconds")) or 0.0) + max(
-        0.0, exposure_value
-    )
-
-    if not math.isfinite(total_points):
-        total_points = 0.0
-    if not math.isfinite(total_exposure):
-        total_exposure = 0.0
+    total_points = float(stats.get("total_points") or 0.0) + points_earned
+    frame_count = int(stats.get("frame_count") or 0) + 1
+    total_exposure = float(stats.get("total_exposure_seconds") or 0.0) + max(0.0, sp_exptime)
 
     points_per_hour = None
     if total_exposure > 0:
-        rate = total_points / (total_exposure / 3600.0)
-        points_per_hour = round(rate, 2) if math.isfinite(rate) else 0.0
-
-    headline_value = dimensions._safe_float(headline, 0.0) or 0.0
-    headline_value = dimensions.clamp(headline_value / 100.0)
+        points_per_hour = round(total_points / (total_exposure / 3600.0), 2)
 
     return {
         "total_points": round(total_points, 2),
@@ -138,7 +117,7 @@ def build_reputation_partial(
             prev_reliability, image_quality, constants.RELIABILITY_EMA_ALPHA
         ),
         "task_quality_score": ema_update(
-            prev_headline, headline_value, constants.HEADLINE_EMA_ALPHA
+            prev_headline, headline / 100.0, constants.HEADLINE_EMA_ALPHA
         ),
         "last_ingested_at": datetime.datetime.now(datetime.timezone.utc).isoformat(),
         "source": "grade_ingest",

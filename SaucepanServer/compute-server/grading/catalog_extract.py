@@ -7,40 +7,11 @@ SSOT mapper for the denormalized L1 index (METADATA Phase 2). Reuses
 
 from __future__ import annotations
 
-import math
 import typing
 import uuid
 from datetime import datetime, timezone
 
 from grading.fits_reader import read_sp_headers
-
-
-def _finite_float(value: typing.Any) -> float | None:
-    """Return a finite float for JSON-safe catalog fields."""
-    try:
-        number = float(value)
-    except (TypeError, ValueError):
-        return None
-    return number if math.isfinite(number) else None
-
-
-def _headline_int(value: typing.Any) -> int | None:
-    """Return a bounded integer headline grade for catalog JSON."""
-    number = _finite_float(value)
-    if number is None:
-        return None
-    return max(0, min(100, int(round(number))))
-
-
-def _json_safe(value: typing.Any) -> typing.Any:
-    """Replace non-finite numbers in nested grade metadata with ``None``."""
-    if isinstance(value, dict):
-        return {str(key): _json_safe(item) for key, item in value.items()}
-    if isinstance(value, (list, tuple)):
-        return [_json_safe(item) for item in value]
-    if isinstance(value, float) and not math.isfinite(value):
-        return None
-    return value
 
 
 def _mjd_from_dateobs(date_obs: str | datetime | None) -> float | None:
@@ -50,11 +21,8 @@ def _mjd_from_dateobs(date_obs: str | datetime | None) -> float | None:
         from astropy.time import Time
 
         if isinstance(date_obs, datetime):
-            return _finite_float(Time(date_obs).mjd)
+            return float(Time(date_obs).mjd)
         text = str(date_obs).strip()
-        parsed = _parse_date_obs(text)
-        if parsed is not None:
-            return _finite_float(Time(parsed).mjd)
         if text.endswith("Z"):
             text = text[:-1]
         # astropy iso parser rejects explicit +00:00 offsets
@@ -67,7 +35,7 @@ def _mjd_from_dateobs(date_obs: str | datetime | None) -> float | None:
                 if idx > 10:
                     text = text[:idx]
                     break
-        return _finite_float(Time(text, scale="utc").mjd)
+        return float(Time(text, scale="utc").mjd)
     except Exception:
         return None
 
@@ -97,7 +65,10 @@ def _dim_float(dimensions: typing.Mapping[str, typing.Any], *path: str) -> float
         cur = cur.get(key)
     if cur is None:
         return None
-    return _finite_float(cur)
+    try:
+        return float(cur)
+    except (TypeError, ValueError):
+        return None
 
 
 def row_from_headers_and_grade(
@@ -125,17 +96,13 @@ def row_from_headers_and_grade(
     date_obs_raw = headers.get("sp_dateobs")
     date_obs = _parse_date_obs(date_obs_raw if isinstance(date_obs_raw, str) else None)
 
-    fwhm = _finite_float(headers.get("sp_fwhm"))
+    fwhm = headers.get("sp_fwhm")
     if fwhm is None:
         fwhm = _dim_float(dimensions, "image_quality", "fwhm_arcsec")
 
-    snr = _finite_float(headers.get("sp_snr"))
+    snr = headers.get("sp_snr")
     if snr is None:
-        snr = _finite_float(quality.get("snr"))
-
-    exptime = _finite_float(headers.get("sp_exptime"))
-    if exptime is None:
-        exptime = _finite_float(grade.get("sp_exptime"))
+        snr = quality.get("snr")
 
     filter_name = headers.get("sp_filter")
     if not filter_name:
@@ -169,20 +136,20 @@ def row_from_headers_and_grade(
         "mjd_obs": _mjd_from_dateobs(
             date_obs or (date_obs_raw if isinstance(date_obs_raw, str) else None)
         ),
-        "ra_deg": _finite_float(headers.get("sp_ra")),
-        "dec_deg": _finite_float(headers.get("sp_dec")),
+        "ra_deg": headers.get("sp_ra"),
+        "dec_deg": headers.get("sp_dec"),
         "filter": filter_name,
-        "exptime_sec": exptime,
-        "airmass": _finite_float(airmass),
+        "exptime_sec": headers.get("sp_exptime") or grade.get("sp_exptime"),
+        "airmass": airmass,
         "fwhm_arcsec": fwhm,
         "snr": snr,
         "tier": tier if tier is not None else _tier_from_grade(grade),
         "calstat": calstat,
         "phot_flag": phot_flag,
-        "headline_grade": _headline_int(grade.get("headline")),
-        "stack_eligible": grade.get("stack_eligible") if isinstance(grade.get("stack_eligible"), bool) else None,
-        "grade_json": _json_safe(grade) if grade else None,
-        "zp": _finite_float(zp),
+        "headline_grade": grade.get("headline"),
+        "stack_eligible": grade.get("stack_eligible"),
+        "grade_json": dict(grade) if grade else None,
+        "zp": zp,
     }
     return row
 

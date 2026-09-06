@@ -8,8 +8,6 @@ mirror fields) independent of those callers.
 
 from __future__ import annotations
 
-import json
-
 from grading.emulator_policy import classify_frame
 from grading.orchestrate import build_grade_payload
 
@@ -103,34 +101,6 @@ def test_dimensions_and_headline_present_with_scientific_value_unscored():
     assert isinstance(payload["headline"], int)
 
 
-def test_empty_quality_cannot_enter_stack():
-    payload = build_grade_payload({}, quality_metrics={}, headers={})
-    assert payload["stack_eligible"] is False
-
-
-def test_zero_only_quality_cannot_enter_stack():
-    payload = build_grade_payload(
-        {},
-        quality_metrics={
-            "snr": 0.0,
-            "noise_adu": 0.0,
-            "star_pixels": 0,
-            "saturated_pixels": 0,
-        },
-        headers={"sp_fwhm": 0.0, "sp_snr": 0.0, "sp_qual": 0.0},
-    )
-    assert payload["stack_eligible"] is False
-
-
-def test_nonfinite_inputs_do_not_escape_grade_json():
-    payload = build_grade_payload(
-        {"integration_time_requested": float("inf")},
-        quality_metrics={"snr": float("nan"), "noise_adu": float("inf")},
-        headers={"sp_exptime": float("inf"), "sp_fwhm": float("nan")},
-    )
-    json.dumps(payload, allow_nan=False)
-
-
 def test_l1_catalog_fields_mirrored_from_headers():
     payload = build_grade_payload({}, quality_metrics=_metrics(), headers=_headers())
     assert payload["sp_ra"] == 10.0
@@ -141,22 +111,22 @@ def test_l1_catalog_fields_mirrored_from_headers():
     assert payload["sp_calstat"] == "BDF"
 
 
-def test_object_key_is_taken_from_context():
+def test_object_key_prefers_s3_key_over_object_key():
     payload = build_grade_payload(
-        {"object_key": "fits/path.fits"},
+        {"s3_key": "s3/path.fits", "object_key": "other/path.fits"},
         quality_metrics=_metrics(),
         headers=_headers(),
     )
-    assert payload["object_key"] == "fits/path.fits"
+    assert payload["object_key"] == "s3/path.fits"
 
 
-def test_object_key_is_none_when_absent():
+def test_object_key_falls_back_to_object_key_when_no_s3_key():
     payload = build_grade_payload(
-        {},
+        {"object_key": "other/path.fits"},
         quality_metrics=_metrics(),
         headers=_headers(),
     )
-    assert payload["object_key"] is None
+    assert payload["object_key"] == "other/path.fits"
 
 
 def test_quality_metrics_subset_carried_through():

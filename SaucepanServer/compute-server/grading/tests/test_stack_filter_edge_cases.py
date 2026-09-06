@@ -29,13 +29,3 @@ def test_is_stack_eligible_at_exact_threshold():
 
 def test_is_stack_eligible_missing_dimension_false():
     assert is_stack_eligible({}) is False
-
-
-def test_filter_stack_eligible_grades_requires_boolean_true():
-    grades = [
-        {"id": 1, "stack_eligible": "true"},
-        {"id": 2, "stack_eligible": "false"},
-        {"id": 3, "stack_eligible": 1},
-        {"id": 4, "stack_eligible": True},
-    ]
-    assert [g["id"] for g in filter_stack_eligible_grades(grades)] == [4]

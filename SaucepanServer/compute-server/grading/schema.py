@@ -52,20 +52,6 @@ class GradePayload(typing.TypedDict, total=False):
     headline: int
     quality_metrics: QualityMetrics
     graded_at: str
-    sp_emulator: bool
-    data_tier: str
-    science_eligible: bool
-    stack_eligible: bool
-    sp_ra: float | None
-    sp_dec: float | None
-    sp_dateobs: str | None
-    sp_filter: str | None
-    sp_fwhm: float | None
-    sp_calstat: str | None
-    sp_snr: float | None
-    campaign_id: str | None
-    frame_id: str | None
-    object_key: str | None
 
 
 class TelescopeStats(typing.TypedDict, total=False):

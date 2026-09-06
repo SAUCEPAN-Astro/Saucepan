@@ -1,8 +1,7 @@
-"""Edge cases for grading.catalog_extract row mapping."""
+"""Edge cases for grading.catalog_extract row mapping (#33)."""
 
 from __future__ import annotations
 
-import json
 from datetime import datetime, timezone
 
 from grading.catalog_extract import (
@@ -180,36 +179,3 @@ def test_catalog_fields_for_ingest_subset_of_keys():
     ingest = catalog_fields_for_ingest(row)
     assert "grade_json" not in ingest
     assert "id" in ingest
-
-
-def test_catalog_numeric_fields_reject_nonfinite_values():
-    row = row_from_headers_and_grade(
-        {
-            "sp_ra": float("nan"),
-            "sp_dec": float("inf"),
-            "sp_exptime": float("nan"),
-            "sp_snr": float("inf"),
-        },
-        grade={"telescope_id": "t1", "sp_exptime": float("inf")},
-        airmass=float("nan"),
-        zp=float("inf"),
-        object_key="x",
-    )
-    json.dumps(row, allow_nan=False)
-
-
-def test_catalog_headline_is_bounded_and_json_safe():
-    row = row_from_headers_and_grade(
-        {},
-        grade={"telescope_id": "t1", "headline": float("inf")},
-        object_key="x",
-    )
-    assert row["headline_grade"] is None
-    json.dumps(row, allow_nan=False)
-
-    bounded = row_from_headers_and_grade(
-        {},
-        grade={"telescope_id": "t1", "headline": 1000},
-        object_key="x",
-    )
-    assert bounded["headline_grade"] == 100

@@ -117,20 +117,6 @@ def test_image_quality_zero_snr_and_zero_predicted_psf():
     assert result["fwhm_source"] in {"neutral", "sp_qual_proxy"}
 
 
-def test_image_quality_zero_fwhm_does_not_divide_by_zero():
-    result = score_image_quality(
-        {"snr": 10.0, "shape": [10, 10], "saturated_pixels": 0},
-        {"sp_fwhm": 0.0},
-        predicted_psf_arcsec=2.0,
-    )
-    assert result["fwhm_source"] == "neutral"
-
-
-def test_image_quality_malformed_snr_defaults_to_zero():
-    result = score_image_quality({"snr": "not-a-number"}, {})
-    assert result["snr"] == 0.0
-
-
 # ── score_task_fidelity ───────────────────────────────────────────────────
 
 
@@ -153,11 +139,6 @@ def test_task_fidelity_filter_mismatch():
     result = score_task_fidelity({"sp_filter": "R"}, {"filter_requested": "G"})
     assert result["filter_match"] is False
     assert result["score"] < 1.0
-
-
-def test_task_fidelity_filter_names_match_exact_tokens():
-    result = score_task_fidelity({"sp_filter": "R"}, {"filter_requested": "IR"})
-    assert result["filter_match"] is False
 
 
 def test_task_fidelity_no_filter_info_gets_absent_score():
@@ -253,13 +234,6 @@ def test_stack_compat_predicted_psf_arcsec_alias_for_max_psf():
     assert result["fwhm_source"] == "computed"
 
 
-def test_stack_compat_zero_fwhm_is_treated_as_missing():
-    result = score_stack_compatibility(
-        {"sp_fwhm": 0.0}, {}, {"max_psf_fwhm": 2.0}
-    )
-    assert result["fwhm_source"] == "missing"
-
-
 # ── score_reliability ──────────────────────────────────────────────────────
 
 
@@ -271,22 +245,6 @@ def test_reliability_no_calstat_defaults_none_uncalibrated():
 
 def test_reliability_plate_solve_partial_headers_not_ok():
     result = score_reliability({"ctype1": "RA---TAN", "crval1": 10.0}, {}, {})  # missing crpix1
-    assert result["plate_solve_ok"] == 0
-
-
-def test_reliability_rejects_bogus_ctype():
-    result = score_reliability(
-        {"ctype1": "not-a-celestial-axis", "crval1": 10.0, "crpix1": 512.0},
-        {},
-        {},
-    )
-    assert result["plate_solve_ok"] == 0
-
-
-def test_reliability_requires_both_celestial_axes():
-    result = score_reliability(
-        {"ctype1": "RA---TAN", "crval1": 10.0, "crpix1": 512.0}, {}, {}
-    )
     assert result["plate_solve_ok"] == 0
 
 

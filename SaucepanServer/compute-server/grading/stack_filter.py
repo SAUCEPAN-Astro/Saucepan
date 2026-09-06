@@ -18,4 +18,4 @@ def filter_stack_eligible_grades(
     grades: typing.Iterable[typing.Mapping[str, typing.Any]],
 ) -> list[typing.Mapping[str, typing.Any]]:
     """Helper for stacking jobs: keep only frames marked stack-eligible."""
-    return [g for g in grades if g.get("stack_eligible") is True]
+    return [g for g in grades if g.get("stack_eligible")]

@@ -1,4 +1,4 @@
-"""Tests for frame_catalog row extraction."""
+"""Tests for frame_catalog row extraction (#33)."""
 
 from __future__ import annotations
 

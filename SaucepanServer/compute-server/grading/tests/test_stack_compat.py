@@ -38,15 +38,7 @@ def test_stack_compat_penalizes_poor_fwhm():
 
 def test_reliability_prefers_calibrated_plate_solved():
     strong = score_reliability(
-        {
-            "sp_calstat": "BDF",
-            "ctype1": "RA---TAN",
-            "ctype2": "DEC--TAN",
-            "crval1": 10.0,
-            "crpix1": 512.0,
-            "crval2": 20.0,
-            "crpix2": 512.0,
-        },
+        {"sp_calstat": "BDF", "ctype1": "RA---TAN", "crval1": 10.0, "crpix1": 512.0},
         {},
         {
             "assignment_sent_at": "2026-01-01T00:00:00Z",

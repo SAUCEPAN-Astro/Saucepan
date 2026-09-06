@@ -1,7 +1,7 @@
 """
 FITS dimension and file-size guards before pixel materialization.
 
-Used by normalize checksum/output paths and grade/stack paths to reject
+Used by normalize checksum/output paths (and grade/stack in #253) to reject
 crafted FITS with inflated NAXIS keywords or oversized on-disk payloads
 before loading ``hdul[0].data`` into RAM.
 """

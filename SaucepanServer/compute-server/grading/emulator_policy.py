@@ -5,7 +5,7 @@ Emulator frames run the full grading/ingest/stack pipeline; they are tagged so
 catalog and science products can distinguish synthetic from real data.
 
 Assignment isolation (allow_emulator / is_emulator) remains upstream in task-server.
-The emulator must remain isolated from science data and ordinary task assignment.
+See tools/emulator/EMULATOR_ISOLATION.md safeguard #7.
 """
 
 from __future__ import annotations

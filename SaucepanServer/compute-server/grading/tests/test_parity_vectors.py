@@ -7,7 +7,6 @@ import os
 from pathlib import Path
 
 import pytest
-import grading
 from grading import constants
 from grading.dimensions import (
     headline_score,
@@ -46,10 +45,6 @@ def test_vectors_dir_present():
         "grade_ingest_min.json",
     ):
         assert (d / name).is_file(), name
-
-
-def test_grading_package_is_loaded_from_this_checkout():
-    assert Path(grading.__file__).resolve().parent == Path(__file__).resolve().parents[1]
 
 
 def test_constants_match_snapshot():

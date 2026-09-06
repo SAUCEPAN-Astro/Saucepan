@@ -1,0 +1,13 @@
+# Synthetic dual-bandpass fixture — telescope B, redder "V" glass (#419)
+# Different colour term; after transform, magnitudes must agree with pier A.
+profile_id: pier_b_v
+telescope_id: pier-b
+instrument: synth-cmos-b
+standard_system: johnson_cousins
+band: V
+color_index: B-V
+color_term: -0.15
+color_zero: 0.65
+zp: 25.40
+k_extinction: 0.0
+airmass_policy: ignore

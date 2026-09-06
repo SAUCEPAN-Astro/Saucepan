@@ -1,0 +1,12 @@
+# Synthetic dual-bandpass fixture — telescope A, "V"-like filter (#419)
+profile_id: pier_a_v
+telescope_id: pier-a
+instrument: synth-cmos-a
+standard_system: johnson_cousins
+band: V
+color_index: B-V
+color_term: 0.10
+color_zero: 0.65
+zp: 25.00
+k_extinction: 0.0
+airmass_policy: ignore
