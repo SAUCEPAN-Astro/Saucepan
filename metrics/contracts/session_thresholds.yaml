@@ -1,0 +1,28 @@
+# Session rollup thresholds — monitoring_data_requirements.md §4.1
+# Consumed by metrics rollup-session CLI (when built).
+
+source: docs/science/research/monitoring_data_requirements.md#41-per-night-quality-metrics
+
+session.comp_rms_mag:
+  excellent_max: 0.005
+  acceptable_max: 0.015
+
+session.frames:
+  excellent_min: 20
+  acceptable_min: 10
+
+session.airmass_range:
+  excellent_max: 0.3
+  acceptable_max: 0.6
+
+session.zp_drift:
+  excellent_max: 0.0
+  acceptable_max: 0.3
+
+session.fwhm_rms_pct:
+  excellent_max: 10
+  acceptable_max: 25
+
+session.phot_class:
+  clear_max_drift_mag: 0.0
+  thin_cloud_max_drift_mag: 0.3

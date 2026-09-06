@@ -1,0 +1,48 @@
+# SLO thresholds — easily changeable without code deploy.
+# Breach action: log_alert only (never block upload/assign).
+
+version: 1
+source: docs/science/METRICS_INSIGHTS_PLAN.md
+
+rules:
+  - metric: ops.grade_duration_ms
+    op: gt
+    threshold: 30000
+    window: 5m
+    action: log_alert
+    severity: warn
+
+  - metric: ops.stack_duration_ms
+    op: gt
+    threshold: 120000
+    window: 15m
+    action: log_alert
+    severity: warn
+
+  - metric: ops.orch_latency_us
+    op: gt
+    threshold: 8000
+    window: 1m
+    action: log_alert
+    severity: warn
+
+  - metric: ops.mqtt_task_receive_ms
+    op: gt
+    threshold: 500
+    window: 1m
+    action: log_alert
+    severity: warn
+
+  - metric: ops.upload_duration_ms
+    op: gt
+    threshold: 600000
+    window: 10m
+    action: log_alert
+    severity: info
+
+  # Documented for later — deprioritize node on breach (not enabled alpha)
+  # - metric: ops.preemptions_total
+  #   op: gt
+  #   threshold: 50
+  #   action: deprioritize_node
+  #   severity: critical

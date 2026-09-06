@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "saucepan-metrics"
+version = "0.1.0"
+description = "Sidecar metrics: registry, producers, observations (no main-path coupling)"
+requires-python = ">=3.10"
+dependencies = [
+  "pyyaml>=6.0",
+  # metrics_store.py defines SQLAlchemy ORM models at module load, and the
+  # datalake db.py import path pulls it in transitively (#505). Declare it so a
+  # fresh `pip install -e metrics/python/metrics` makes the test suite green
+  # instead of erroring 9 tests with ModuleNotFoundError.
+  "sqlalchemy>=2.0",
+]
+
+[project.optional-dependencies]
+fits = ["astropy>=6.0"]
+grade = ["saucepan-grading"]
+dev = ["pytest>=7.0"]
+
+[project.scripts]
+metrics-sidecar = "metrics.cli:main"
+
+[tool.setuptools]
+package-dir = {"metrics" = ".", "" = ".."}
+packages = ["metrics", "metrics.producers", "metrics.projectors", "metrics.insights"]
+py-modules = ["metrics_store"]
+
+[tool.setuptools.data-files]
+"share/saucepan-metrics/contracts" = ["../../contracts/*.yaml"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

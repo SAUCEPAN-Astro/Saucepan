@@ -1,0 +1,32 @@
+# Insight rules — evaluated by metrics/insights/evaluate.py (sidecar cron, not main path).
+# Breach = log + alert only; never blocks upload or task assignment.
+
+version: 1
+source: WAIT_LATER.md §15
+
+rules:
+  - id: node_offline
+    when: "ops.node_status == 'offline'"
+    emit: NODE_OFFLINE
+    severity: critical
+    attach: [node_id, telescope_id]
+
+  - id: session_nonphot
+    enabled: true
+    when: "session.phot_class == 'NONPHOT'"
+    emit: SESSION_NONPHOT
+    severity: warn
+    attach: [node_id, telescope_id, night_id]
+
+  - id: zp_drift
+    enabled: true
+    when: "session.zp_drift > 0.05"
+    emit: ZP_DRIFT
+    severity: warn
+    attach: [telescope_id, night_id]
+
+  - id: grade_slow
+    when: "ops.grade_duration_ms > 30000"
+    emit: GRADE_SLOW
+    severity: warn
+    attach: [telescope_id]
