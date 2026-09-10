@@ -7,7 +7,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/saucepan/hotpath/internal/pierjob"
+	"github.com/saucepan/hotpath/shared/pierjob"
 	"github.com/saucepan/hotpath/shared/wire"
 	"github.com/tetratelabs/wazero"
 	"github.com/tetratelabs/wazero/imports/wasi_snapshot_preview1"

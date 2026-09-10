@@ -1,4 +1,4 @@
-// Command pier-agent is the resident daemon that actually drives telescope
+// Command saucepan is the resident daemon that actually drives telescope
 // hardware over ASCOM Alpaca and talks to the Saucepan task server over
 // the existing MQTT wire contract (shared/wire) - the real hardware-control
 // counterpart to cmd/saucepan's read-only monitoring CLI. See
@@ -9,7 +9,7 @@
 // shared.PassesAltAzSafety (mount limits, horizon profile, obstruction
 // polygons, slew-path-through-forbidden-zone) *before* any Alpaca call is
 // made - an unsafe target is rejected, never attempted and then aborted.
-package main
+package pieragent
 
 import (
 	"fmt"
@@ -217,7 +217,7 @@ func (a *Agent) ExecuteAssignTask(payload wire.AssignTaskPayload) (string, error
 	}
 
 	if payload.TargetRA == nil || payload.TargetDec == nil {
-		return "", fmt.Errorf("assign_task for task %d has no target coordinates - pier-agent only drives coordinate-targeted tasks in this phase", payload.TaskID)
+		return "", fmt.Errorf("assign_task for task %d has no target coordinates - saucepan only drives coordinate-targeted tasks in this phase", payload.TaskID)
 	}
 	targetRA, targetDec := *payload.TargetRA, *payload.TargetDec
 
@@ -309,7 +309,7 @@ func (a *Agent) ExecuteAssignTask(payload wire.AssignTaskPayload) (string, error
 			captureFilter = *ov.Filter
 		}
 		if ov.Gain != nil {
-			log.Printf("pier-agent: next_capture gain override %.1f ignored - no gain-set path on this rig", *ov.Gain)
+			log.Printf("saucepan: next_capture gain override %.1f ignored - no gain-set path on this rig", *ov.Gain)
 		}
 	}
 	a.hardwareMu.Lock()

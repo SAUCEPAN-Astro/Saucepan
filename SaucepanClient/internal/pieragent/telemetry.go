@@ -1,4 +1,4 @@
-package main
+package pieragent
 
 import (
 	"github.com/saucepan/hotpath/shared/alpaca"
@@ -9,7 +9,7 @@ import (
 // populating the Alpaca-derived fields (AlpacaTeleConn, AlpacaCamConn,
 // CamTemp, FilterPos, MountAltDeg, MountAzDeg) that have existed in the
 // wire contract since the Rust client but were never populated by anything
-// in this Go tree until pier-agent (#494). Every read is best-effort: a
+// in this Go tree until saucepan (#494). Every read is best-effort: a
 // single device hiccup degrades that one field to nil/false rather than
 // failing the whole telemetry publish - a disconnected filter wheel
 // shouldn't hide that the mount and camera are fine.

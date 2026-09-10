@@ -1,5 +1,6 @@
 // Package pierjob is the process-local IPC contract between the pier agent
-// (cmd/pier-agent) and the sandboxed on-pier code runner (cmd/saucepan-runner):
+// (SaucepanClient/internal/pieragent) and the sandboxed on-pier code runner
+// (cmd/saucepan-runner):
 // one Job written to the runner's stdin, a stream of Record lines read back
 // from its stdout. It is module-internal by design — not a wire contract, not
 // something an SDK or an external tool ever sees. The runner holds no

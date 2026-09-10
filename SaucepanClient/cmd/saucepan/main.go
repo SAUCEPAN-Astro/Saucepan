@@ -1,8 +1,7 @@
-// Command saucepan is a lightweight, MQTT-only monitoring CLI for
-// Saucepan piers: pick which campaigns your scope contributes to, cap
-// what it is allowed to do, watch what it is doing, and leave a note for
-// whichever other piers share its current task (#463). Nothing else.
-// No HTTP, no daemon.
+// Command saucepan is the single Saucepan pier client. Its `run` mode is the
+// resident BOINC-style client that connects hardware, receives signed
+// assignments, captures safely, and publishes telemetry. Its other commands
+// are one-shot monitoring and operator controls for the same pier.
 //
 // One deliberate piece of local state: `saucepan consent` reads and writes
 // a small JSON file recording which campaigns' on-pier code (#470) the
@@ -15,6 +14,8 @@ import (
 	"fmt"
 	"os"
 	"time"
+
+	pieragent "github.com/saucepan/saucepan-client/internal/pieragent"
 )
 
 // Exit codes (PIER_CLI.md §4): 0 ok, 1 error, 2 no data for the requested node.
@@ -34,6 +35,8 @@ func run(args []string) int {
 		return exitError
 	}
 	switch cmd, rest := args[0], args[1:]; cmd {
+	case "run":
+		return cmdRun(rest)
 	case "status":
 		return cmdStatus(rest)
 	case "constraints":
@@ -55,9 +58,10 @@ func run(args []string) int {
 }
 
 func usage(w *os.File) {
-	fmt.Fprint(w, `saucepan — MQTT-only pier monitoring CLI
+	fmt.Fprint(w, `saucepan — the Saucepan pier client
 
 Usage:
+	  saucepan run          start the resident client (hardware + monitoring)
   saucepan status      [--json] [--broker <url>] [--node <id>] [--timeout <dur>]
   saucepan constraints --node <id> [--json] [--power P] [--max-exposure S]
                          [--alt-min D] [--alt-max D] [--filters L,R,G,B]
@@ -70,6 +74,20 @@ consent is local-only (no broker): the per-campaign approval a pier operator mus
 Env: MQTT_BROKER, MQTT_USERNAME, MQTT_PASSWORD, SAUCEPAN_NODE_ID
 Exit codes: 0 ok, 1 error, 2 no data for the requested node.
 `)
+}
+
+// cmdRun starts the resident pier client. Keeping this as a subcommand makes
+// accidental hardware startup impossible when an operator only wants help.
+func cmdRun(args []string) int {
+	if len(args) != 0 {
+		fmt.Fprintln(os.Stderr, "saucepan run: no arguments are accepted")
+		return exitError
+	}
+	if err := pieragent.Run(); err != nil {
+		fmt.Fprintln(os.Stderr, "saucepan run:", err)
+		return exitError
+	}
+	return exitOK
 }
 
 // globalFlags is the set of flags common to every subcommand (§4).

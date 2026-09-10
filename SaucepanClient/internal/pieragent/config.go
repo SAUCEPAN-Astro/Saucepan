@@ -1,4 +1,4 @@
-package main
+package pieragent
 
 import (
 	"encoding/json"
@@ -12,7 +12,7 @@ import (
 	"github.com/saucepan/hotpath/shared/wire"
 )
 
-// Config is pier-agent's full runtime configuration: env vars for
+// Config is saucepan's full runtime configuration: env vars for
 // transport endpoints (matching the CLI's env-var convention, PIER_CLI.md
 // §2) plus a local JSON file for the site/safety data an operator actually
 // needs to set once (mount limits, horizon, obstructions) - the same
@@ -42,7 +42,7 @@ type Config struct {
 
 // SafetyConfig mirrors the fields of wire.NodeMetadata that describe a
 // site's physical safety envelope. Loaded from a local JSON file so an
-// operator sets it once per install; pier-agent never derives it and never
+// operator sets it once per install; saucepan never derives it and never
 // guesses a default that could let a real mount slew somewhere unsafe.
 type SafetyConfig struct {
 	SiteLat           *float64             `json:"site_lat"`

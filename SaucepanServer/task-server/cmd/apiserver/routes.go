@@ -28,7 +28,7 @@ type apiSurface string
 
 const (
 	// surfacePier — device/pier-facing (quest, uploads, auth devices). Contract
-	// consumer is cmd/pier-agent + cmd/saucepan, not the SDK.
+	// consumer is the resident SaucepanClient, not the SDK.
 	surfacePier apiSurface = "pier"
 	// surfaceAuth — identity (register/login/refresh/password). Shared.
 	surfaceAuth apiSurface = "auth"

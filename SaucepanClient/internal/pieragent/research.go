@@ -1,4 +1,4 @@
-package main
+package pieragent
 
 import (
 	"bytes"
@@ -11,11 +11,11 @@ import (
 	"strings"
 	"time"
 
-	"github.com/saucepan/hotpath/internal/pierjob"
+	"github.com/saucepan/hotpath/shared/pierjob"
 	"github.com/saucepan/hotpath/shared/wire"
 )
 
-// pierCode holds the pier-agent side of on-pier researcher code (#470): it
+// pierCode holds the saucepan side of on-pier researcher code (#470): it
 // forks cmd/saucepan-runner once per captured frame for a campaign that ships
 // code, then carries out the effects the sandbox asked for (a board post, a
 // next-capture nudge, an inbox alert). It is the only component that ever
@@ -92,7 +92,7 @@ func (pc *pierCode) run(ctx context.Context, nodeID string, assign wire.AssignTa
 
 	cmd := exec.CommandContext(runCtx, pc.RunnerPath)
 	// The runner is intentionally credential-less. It receives only the
-	// serialized job over stdin; no pier-agent environment variable should
+	// serialized job over stdin; no saucepan environment variable should
 	// cross the process boundary.
 	cmd.Env = []string{}
 	cmd.Stdin = bytes.NewReader(jobJSON)
@@ -108,7 +108,7 @@ func (pc *pierCode) run(ctx context.Context, nodeID string, assign wire.AssignTa
 	var applyErr error
 	for _, rec := range recs {
 		if err := pc.apply(nodeID, assign, grants, rec); err != nil {
-			log.Printf("pier-agent: pier_code: campaign %s: %v", assign.CampaignID, err)
+			log.Printf("saucepan: pier_code: campaign %s: %v", assign.CampaignID, err)
 			if applyErr == nil {
 				applyErr = err
 			}
@@ -210,7 +210,7 @@ func (pc *pierCode) apply(nodeID string, assign wire.AssignTaskPayload, grants m
 	case wire.ActionReadFrame, wire.ActionBoardRead, wire.ActionListPiers:
 		// Pull-only actions: the guest gets these through host functions, it
 		// does not emit them as records. Ignore defensively.
-		log.Printf("pier-agent: pier_code: ignoring emitted pull action %q", rec.Action)
+		log.Printf("saucepan: pier_code: ignoring emitted pull action %q", rec.Action)
 		return nil
 	}
 	return fmt.Errorf("unhandled granted action %q", rec.Action)

@@ -7,7 +7,7 @@ import (
 	"log"
 	"math"
 
-	"github.com/saucepan/hotpath/internal/pierjob"
+	"github.com/saucepan/hotpath/shared/pierjob"
 	"github.com/saucepan/hotpath/shared/wire"
 	"github.com/tetratelabs/wazero"
 	"github.com/tetratelabs/wazero/api"

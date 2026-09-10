@@ -2,8 +2,8 @@
 // on-pier code (#470 / #515). The pier agent forks one short-lived runner per
 // captured frame; the runner holds no credentials, no hardware handle, and no
 // network — its only channel is one Job on stdin and a stream of Record lines
-// on stdout. The IPC contract itself lives in internal/pierjob (shared with
-// cmd/pier-agent); this file just re-exports it under the names the runner's
+// on stdout. The IPC contract itself lives in shared/pierjob (shared with
+// SaucepanClient/internal/pieragent); this file just re-exports it under the names the runner's
 // own code reads with, plus the sandbox wiring in sandbox.go / host.go.
 // See docs/design/ON_PIER_SANDBOX_RUNTIME.md.
 package main
@@ -11,7 +11,7 @@ package main
 import (
 	"io"
 
-	"github.com/saucepan/hotpath/internal/pierjob"
+	"github.com/saucepan/hotpath/shared/pierjob"
 )
 
 type (

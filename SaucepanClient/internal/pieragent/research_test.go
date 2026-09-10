@@ -1,4 +1,4 @@
-package main
+package pieragent
 
 import (
 	"context"
@@ -10,7 +10,7 @@ import (
 	"runtime"
 	"testing"
 
-	"github.com/saucepan/hotpath/internal/pierjob"
+	"github.com/saucepan/hotpath/shared/pierjob"
 	"github.com/saucepan/hotpath/shared/wire"
 )
 

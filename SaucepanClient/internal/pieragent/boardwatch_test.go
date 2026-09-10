@@ -1,4 +1,4 @@
-package main
+package pieragent
 
 import (
 	"encoding/json"
