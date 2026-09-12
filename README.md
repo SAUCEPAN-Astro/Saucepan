@@ -11,11 +11,6 @@ Edge code and inter-telescope communication via message board <br>
 Hardware integration: a resident pier agent with ASCOM Alpaca support, telemetry, FITS writing, signed commands, and safety-gated mount operations.<br>
 Ability to maintain private distributed telescope fleet by research groups* <br>
 
-The user-facing Go pier client lives at [`SaucepanClient/`](SaucepanClient/).
-Build the single binary from that directory and start its resident BOINC-style
-mode with `saucepan run`; the same binary provides `status`, `constraints`,
-`projects`, `board`, and `consent`.
-
 *not a feature that is fully fleshed out in this reference implementation<br>
 
 
