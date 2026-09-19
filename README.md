@@ -32,7 +32,25 @@ The current implementation gives all authorized users access to the highest task
 This code has not been tested on a live fleet, or ever run with actual telescopes rather only with simulated nodes to ensure wiring and logic hold.<br>
 
 
-*The purpose of this feature is to allow lower latency edge compute, which may be useful for time-sensitive discoveries; coupled with the ability of volunteer machines (piers) to communicate with each other over a message board this allows for anomaly/Object of interest detection programs to be written specifically for each campaign <br>
+*The purpose of this feature is to allow lower latency edge compute, which may be useful for time-sensitive discoveries; coupled with the ability of volunteer machines (piers) to communicate with each other over a 
+message board this allows for anomaly/Object of interest detection programs to be written specifically for each campaign <br>
+
+# Example SDK usage 
+
+```from saucepan import TaskSpec
+
+task = client.add_task(
+    campaign_id="<CAMPAIGN_ID>",
+    spec=TaskSpec(
+        name="<TASK_LABEL>",  #arbitrary string; only useful for organization
+        normalized_integration_budget_s=<TOTAL_2M_EQUIVALENT_SECONDS>, 
+        filters=["<FILTER>"],
+        min_power=0.0,
+    ),
+    target_ra=<RA_DEGREES>,
+    target_dec=<DEC_DEGREES>,
+)```
 
 ## Financial considerations 
 The current model operates without any financial incentive for the volunteers or any cost to the researchers, however a production implementation may have to change that. 
+
