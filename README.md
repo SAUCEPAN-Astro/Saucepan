@@ -16,7 +16,9 @@ Ability to maintain private distributed telescope fleet by research groups* <br>
 
 # Parked project
 I am a highschool student, and do not have the skillset, time or resources to fully realize this project, and hence this project remains parked. If anyone is interested in forking the project/ working on/with this project please do reach out to me, I would love to be in the loop as to where this project goes. https://discord.gg/Z4cJxczXBq 
-If resources and time do permit me, I will love to continue working on this project
+If resources and time do permit me, I will love to continue working on this project. The current blockers are: <br> 
+1. A team member that knows more about programming than I do, and is interested in working on this project <br>
+2. Access to a GOTO telescope mount to test the client side features 
 
 
 # Introduction 
