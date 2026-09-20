@@ -57,8 +57,8 @@ task = client.add_task(
 ```
 
 # Contact 
-**Discord:** https://discord.gg/Z4cJxczXBq 
-**LinkedIN:** https://www.linkedin.com/in/vyom-bagrecha-899704383/
+**Discord:** https://discord.gg/Z4cJxczXBq <br>
+**LinkedIN:** https://www.linkedin.com/in/vyom-bagrecha-899704383/ <br>
 **Email**: [Email Me (alias)](mailto:saucepan.headscarf744@slmail.me)
 
 
