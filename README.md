@@ -16,9 +16,11 @@ Ability to maintain private distributed telescope fleet by research groups* <br>
 
 # Parked project
 I am a highschool student, and do not have the skillset, time or resources to fully realize this project, and hence this project remains parked. If anyone is interested in forking the project/ working on/with this project please do reach out to me, I would love to be in the loop as to where this project goes. https://discord.gg/Z4cJxczXBq 
+
 If resources and time do permit me, I will love to continue working on this project. The current blockers are: <br> 
 1. A team member that knows more about programming than I do, and is interested in working on this project <br>
-2. Access to a GOTO telescope mount to test the client side features 
+2. Access to a GOTO telescope mount to test the client side features
+3. A tangible use case, where this network may actually help researchers; some preliminary research has lead me to some however I hope to be able to reach out to some individuals that are in the field and get thier opinion on its use case first. 
 
 
 # Introduction 
@@ -51,8 +53,12 @@ task = client.add_task(
     ),
     target_ra=<RA_DEGREES>,
     target_dec=<DEC_DEGREES>,
-)```
+)
+```
 
-## Financial considerations 
-The current model operates without any financial incentive for the volunteers or any cost to the researchers, however a production implementation may have to change that. 
+# Contact 
+**Discord:** https://discord.gg/Z4cJxczXBq 
+**LinkedIN:** https://www.linkedin.com/in/vyom-bagrecha-899704383/
+**Email**: [Email Me (alias)](mailto:saucepan.headscarf744@slmail.me)
+
 
