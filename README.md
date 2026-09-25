@@ -14,6 +14,11 @@ Ability to maintain private distributed telescope fleet by research groups* <br>
 *not a feature that is fully fleshed out in this reference implementation<br>
 
 
+
+<img width="11507" height="9682" alt="Untitled-2026-09-25-1628" src="https://github.com/user-attachments/assets/743ea5ed-17ab-4c43-ad5e-db27ccc5ee56" />
+
+
+
 # Parked project
 I am a highschool student, and do not have the skillset, time or resources to fully realize this project, and hence this project remains parked. If anyone is interested in forking the project/ working on/with this project please do reach out to me, I would love to be in the loop as to where this project goes. https://discord.gg/Z4cJxczXBq 
 
