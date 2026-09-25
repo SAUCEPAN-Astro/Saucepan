@@ -20,6 +20,9 @@ Ability to maintain private distributed telescope fleet by research groups* <br>
 
 
 # Parked project
+
+**Code to be rewritten by hand (no ai agents to be used in rewrite) to ensure higher quality**
+
 I am a highschool student, and do not have the skillset, time or resources to fully realize this project, and hence this project remains parked. If anyone is interested in forking the project/ working on/with this project please do reach out to me, I would love to be in the loop as to where this project goes. https://discord.gg/Z4cJxczXBq 
 
 If resources and time do permit me, I will love to continue working on this project. The current blockers are: <br> 
